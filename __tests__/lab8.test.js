@@ -41,17 +41,17 @@ describe('Basic user flow for Website', () => {
     // Right now this function is only checking the first <product-item> it found, make it so that
     // it checks every <product-item> it found
 
-    for(let i = 0; i < prodItems.length; i++){
+    for (let i = 0; i < prodItems.length; i++) {
       // Grab the .data property of <product-items> to grab all of the json data stored inside
-    data = await prodItems[i].getProperty('data');
-    // Convert that property to JSON
-    plainValue = await data.jsonValue();
-    // Make sure the title, price, and image are populated in the JSON
-    if (plainValue.title.length == 0) { allArePopulated = false; }
-    if (plainValue.price.length == 0) { allArePopulated = false; }
-    if (plainValue.image.length == 0) { allArePopulated = false; }
-    // Expect allArePopulated to still be true
-    expect(allArePopulated).toBe(true);
+      data = await prodItems[i].getProperty('data');
+      // Convert that property to JSON
+      plainValue = await data.jsonValue();
+      // Make sure the title, price, and image are populated in the JSON
+      if (plainValue.title.length == 0) { allArePopulated = false; }
+      if (plainValue.price.length == 0) { allArePopulated = false; }
+      if (plainValue.image.length == 0) { allArePopulated = false; }
+      // Expect allArePopulated to still be true
+      expect(allArePopulated).toBe(true);
     }
     expect(allArePopulated).toBe(true);
   }, 10000);
@@ -74,12 +74,12 @@ describe('Basic user flow for Website', () => {
     const buttonText = await prodButton[0].getProperty('innerText');
     const buttonVal = await buttonText.jsonValue();
 
-    if(buttonVal != "Remove from Cart"){
+    if (buttonVal != "Remove from Cart") {
       isRemoved = false;
     }
 
     expect(isRemoved).toBe(true);
-    
+
   }, 2500);
 
   // Check to make sure that after clicking "Add to Cart" on every <product-item> that the Cart
@@ -94,26 +94,26 @@ describe('Basic user flow for Website', () => {
     let is20 = true;
     const prodItems = await page.$$('product-item');
 
-    for(let i = 0; i < prodItems.length; i++){
+    for (let i = 0; i < prodItems.length; i++) {
       let isRemoved = true;
-    const prodItems = await page.$$('product-item');
-    const prodShadow = await prodItems[i].getProperty('shadowRoot');
-    const prodButton = await prodShadow.$$("button");
-    const buttonText = await prodButton[0].getProperty('innerText');
-    const buttonVal = await buttonText.jsonValue();
+      const prodItems = await page.$$('product-item');
+      const prodShadow = await prodItems[i].getProperty('shadowRoot');
+      const prodButton = await prodShadow.$$("button");
+      const buttonText = await prodButton[0].getProperty('innerText');
+      const buttonVal = await buttonText.jsonValue();
 
-    if(buttonVal == "Add to Cart"){
-      await prodButton[0].click();
-    }
+      if (buttonVal == "Add to Cart") {
+        await prodButton[0].click();
+      }
     }
     const cartCount = await page.$$("#cart-count");
     const countText = await cartCount[0].getProperty('innerText');
     const countVal = await countText.jsonValue();
-      if(countVal != "20"){
-        is20 = false;
-      }
+    if (countVal != "20") {
+      is20 = false;
+    }
 
-      expect(is20).toBe(true);
+    expect(is20).toBe(true);
   }, 1000000);
 
   // Check to make sure that after you reload the page it remembers all of the items in your cart
@@ -131,31 +131,31 @@ describe('Basic user flow for Website', () => {
     let isRemoved = true;
     let is20 = true;
 
-    for(let i = 0; i < prodItems.length; i++){
+    for (let i = 0; i < prodItems.length; i++) {
       let isRemoved = true;
-    const prodItems = await page.$$('product-item');
-    const prodShadow = await prodItems[i].getProperty('shadowRoot');
-    const prodButton = await prodShadow.$$("button");
-    const buttonText = await prodButton[0].getProperty('innerText');
-    const buttonVal = await buttonText.jsonValue();
+      const prodItems = await page.$$('product-item');
+      const prodShadow = await prodItems[i].getProperty('shadowRoot');
+      const prodButton = await prodShadow.$$("button");
+      const buttonText = await prodButton[0].getProperty('innerText');
+      const buttonVal = await buttonText.jsonValue();
 
-    if(buttonVal != "Remove from Cart"){
-      isRemoved = false;
-    }
-    if(buttonVal == "Add to Cart"){
-      await prodButton[0].click();
-    }
-    expect(isRemoved).toBe(true);
+      if (buttonVal != "Remove from Cart") {
+        isRemoved = false;
+      }
+      if (buttonVal == "Add to Cart") {
+        await prodButton[0].click();
+      }
+      expect(isRemoved).toBe(true);
 
     }
-    
+
     const cartCount = await page.$$("#cart-count");
     const countText = await cartCount[0].getProperty('innerText');
     const countVal = await countText.jsonValue();
-      if(countVal != "20"){
-        is20 = false;
-      }
-      expect(is20).toBe(true);
+    if (countVal != "20") {
+      is20 = false;
+    }
+    expect(is20).toBe(true);
 
 
   }, 1000000);
@@ -167,15 +167,15 @@ describe('Basic user flow for Website', () => {
     // '[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]', check to make sure it is
     let isCorrect = true;
     const localVal = await page.evaluate(() => {
-      let data = localStorage.getItem('cart'); 
+      let data = localStorage.getItem('cart');
       return data;
-  })
-  
-  if(localVal != "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"){
-    isCorrect= false;
-  }
+    })
 
-  expect(isCorrect).toBe(true);
+    if (localVal != "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]") {
+      isCorrect = false;
+    }
+
+    expect(isCorrect).toBe(true);
 
 
   });
@@ -191,25 +191,25 @@ describe('Basic user flow for Website', () => {
     let isZero = true;
     const prodItems = await page.$$('product-item');
 
-   for(let i = 0; i < prodItems.length; i++){
-    const prodItems = await page.$$('product-item');
-    const prodShadow = await prodItems[i].getProperty('shadowRoot');
-    const prodButton = await prodShadow.$$("button");
-    const buttonText = await prodButton[0].getProperty('innerText');
-    const buttonVal = await buttonText.jsonValue();
+    for (let i = 0; i < prodItems.length; i++) {
+      const prodItems = await page.$$('product-item');
+      const prodShadow = await prodItems[i].getProperty('shadowRoot');
+      const prodButton = await prodShadow.$$("button");
+      const buttonText = await prodButton[0].getProperty('innerText');
+      const buttonVal = await buttonText.jsonValue();
 
-    if(buttonVal == "Remove from Cart"){
-      await prodButton[0].click();
+      if (buttonVal == "Remove from Cart") {
+        await prodButton[0].click();
+      }
     }
-  }
 
     const cartCount = await page.$$("#cart-count");
     const countText = await cartCount[0].getProperty('innerText');
     const countVal = await countText.jsonValue();
-      if(countVal != "0"){
-        isZero = false;
-      }
-      expect(isZero).toBe(true);
+    if (countVal != "0") {
+      isZero = false;
+    }
+    expect(isZero).toBe(true);
   }, 1000000);
 
   // Checking to make sure that it remembers us removing everything from the cart
@@ -228,27 +228,27 @@ describe('Basic user flow for Website', () => {
     let isAdd = true;
     let isZero = true;
 
-    for(let i = 0; i < prodItems.length; i++){
+    for (let i = 0; i < prodItems.length; i++) {
       let isRemoved = true;
-    const prodItems = await page.$$('product-item');
-    const prodShadow = await prodItems[i].getProperty('shadowRoot');
-    const prodButton = await prodShadow.$$("button");
-    const buttonText = await prodButton[0].getProperty('innerText');
-    const buttonVal = await buttonText.jsonValue();
+      const prodItems = await page.$$('product-item');
+      const prodShadow = await prodItems[i].getProperty('shadowRoot');
+      const prodButton = await prodShadow.$$("button");
+      const buttonText = await prodButton[0].getProperty('innerText');
+      const buttonVal = await buttonText.jsonValue();
 
-    if(buttonVal != "Add to Cart"){
-      isAdd = false;
+      if (buttonVal != "Add to Cart") {
+        isAdd = false;
+      }
+      expect(isAdd).toBe(true);
     }
-    expect(isAdd).toBe(true);
-    }
-    
+
     const cartCount = await page.$$("#cart-count");
     const countText = await cartCount[0].getProperty('innerText');
     const countVal = await countText.jsonValue();
-      if(countVal != "0"){
-        isZero = false;
-      }
-      expect(isZero).toBe(true);
+    if (countVal != "0") {
+      isZero = false;
+    }
+    expect(isZero).toBe(true);
   }, 1000000);
 
   // Checking to make sure that localStorage for the cart is as we'd expect for the
@@ -260,14 +260,14 @@ describe('Basic user flow for Website', () => {
 
     let isCorrect = true;
     const localVal = await page.evaluate(() => {
-      let data = localStorage.getItem('cart'); 
+      let data = localStorage.getItem('cart');
       return data;
-  })
-  
-  if(localVal != "[]"){
-    isCorrect= false;
-  }
+    })
 
-  expect(isCorrect).toBe(true);
+    if (localVal != "[]") {
+      isCorrect = false;
+    }
+
+    expect(isCorrect).toBe(true);
   });
 });
