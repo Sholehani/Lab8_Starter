@@ -2,6 +2,8 @@
 
 ## Names: Sholehani Hafezi
 
+---
+## Check Your Understanding
 1. 1: To automatically test with other components within repository and does not need to set up dependencies.
 2. no: End-to-end focuses on testing the entire project (all user actions from start to finish) rather than a single function.
 3. no: Testing user message involves many components, where their interactions can not be tested.
